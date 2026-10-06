@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>⚽ FootTicket · football ticket app</title>
+  <!-- Font Awesome 6 (free) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Google Fonts: modern, sporty feel -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(145deg, #0a1f2e 0%, #0e2a3a 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1.5rem;
+    }
+
+    /* main app card – resembles a slick mobile screen */
+    .app-container {
+      max-width: 1200px;
+      width: 100%;
+      background: #f8faff;
+      border-radius: 2.5rem;
+      box-shadow: 0 30px 50px rgba(0, 0, 0, 0.7), 0 0 0 2px rgba(0, 255, 200, 0.1);
+      overflow: hidden;
+      transition: all 0.2s;
+    }
+
+    /* header / top bar */
+    .app-header {
+      background: #0b1e2b;
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      border-bottom: 3px solid #17c964;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo-icon {
+      background: #17c964;
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      color: #0b1e2b;
+      box-shadow: 0 8px 16px rgba(23, 201, 100, 0.3);
+    }
+
+    .logo-text h1 {
+      color: white;
+      font-weight: 800;
+      font-size: 1.8rem;
+      letter-spacing: -0.5px;
+      line-height: 1.1;
+    }
+
+    .logo-text span {
+      color: #17c964;
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 0.5px;
+      display: block;
+      margin-top: 2px;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .icon-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: white;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      cursor: default;
+      transition: 0.2s;
+    }
+
+    .icon-btn:hover {
+      background: #17c964;
+      color: #0b1e2b;
+      border-color: #17c964;
+    }
+
+    .user-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: rgba(23, 201, 100, 0.15);
+      border: 1px solid rgba(23, 201, 100, 0.4);
+      padding: 0.4rem 1rem 0.4rem 0.8rem;
+      border-radius: 40px;
+      color: white;
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+
+    .user-badge i {
+      color: #17c964;
+      font-size: 1.2rem;
+    }
+
+    /* main content */
+    .main-content {
+      padding: 2rem 2rem 1.5rem;
+    }
+
+    /* welcome + search row */
+    .welcome-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2.2rem;
+    }
+
+    .welcome-text h2 {
+      color: #0b1e2b;
+      font-size: 1.9rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .welcome-text p {
+      color: #4a5b6b;
+      font-weight: 500;
+      margin-top: 0.3rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .welcome-text i {
+      color: #17c964;
+    }
+
+    .search-bar {
+      background: white;
+      border-radius: 60px;
+      padding: 0.5rem 0.5rem 0.5rem 1.5rem;
+      display: flex;
+      align-items: center;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+      border: 1px solid #e2e8f0;
+      min-width: 300px;
+    }
+
+    .search-bar i {
+      color: #94a3b8;
+      font-size: 1.2rem;
+    }
+
+    .search-bar input {
+      border: none;
+      outline: none;
+      padding: 0.8rem 0.8rem;
+      font-size: 1rem;
+      flex: 1;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      color: #0b1e2b;
+    }
+
+    .search-bar input::placeholder {
+      color: #a0aec0;
+      font-weight: 400;
+    }
+
+    .search-bar button {
+      background: #17c964;
+      border: none;
+      color: #0b1e2b;
+      font-weight: 700;
+      padding: 0.8rem 1.8rem;
+      border-radius: 40px;
+      font-size: 0.95rem;
+      cursor: default;
+      transition: 0.2s;
+      letter-spacing: 0.3px;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .search-bar button i {
+      color: #0b1e2b;
+      font-size: 1rem;
+    }
+
+    /* section title */
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.2rem;
+    }
+
+    .section-title h3 {
+      color: #0b1e2b;
+      font-weight: 800;
+      font-size: 1.4rem;
+      letter-spacing: -0.3px;
+    }
+
+    .section-title a {
+      color: #17c964;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      cursor: default;
+    }
+
+    /* match cards grid */
+    .matches-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .match-card {
+      background: white;
+      border-radius: 1.8rem;
+      overflow: hidden;
+      box-shadow: 0 15px 30px rgba(0, 20, 30, 0.08);
+      transition: 0.2s ease;
+      border: 1px solid #edf2f7;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .match-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 25px 40px rgba(0, 40, 30, 0.12);
+      border-color: #17c96440;
+    }
+
+    /* top badge row inside card */
+    .card-badge {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.3rem 0.2rem;
+    }
+
+    .league-tag {
+      background: #e9f9ef;
+      color: #0e7b3e;
+      font-weight: 700;
+      font-size: 0.7rem;
+      letter-spacing: 0.5px;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .league-tag i {
+      font-size: 0.7rem;
+    }
+
+    .hot-tag {
+      background: #ffedd5;
+      color: #b45309;
+      font-weight: 700;
+      font-size: 0.7rem;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      display: flex;
+      align-items: center;
+      gap: 0.2rem;
+    }
+
+    /* teams row */
+    .teams-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.3rem 0.5rem;
+    }
+
+    .team {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      width: 40%;
+    }
+
+    .team-badge {
+      width: 65px;
+      height: 65px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: white;
+      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+      transition: 0.2s;
+    }
+
+    .team1 .team-badge {
+      background: linear-gradient(135deg, #1e3a8a, #2563eb);
+    }
+
+    .team2 .team-badge {
+      background: linear-gradient(135deg, #b91c1c, #dc2626);
+    }
+
+    .team-name {
+      font-weight: 700;
+      color: #0b1e2b;
+      font-size: 1rem;
+      text-align: center;
+    }
+
+    .vs-divider {
+      font-weight: 800;
+      color: #94a3b8;
+      font-size: 1.2rem;
+      background: #f1f5f9;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+    }
+
+    /* match info */
+    .match-info {
+      padding: 0.8rem 1.3rem 0.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      border-top: 1px dashed #e2e8f0;
+      margin-top: 0.6rem;
+    }
+
+    .info-row {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      color: #334155;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    .info-row i {
+      color: #17c964;
+      width: 18px;
+      font-size: 1rem;
+    }
+
+    /* price and action */
+    .price-row {
+      padding: 1rem 1.3rem 1.3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 0.2rem;
+    }
+
+    .price {
+      background: #f1f5f9;
+      padding: 0.4rem 1rem;
+      border-radius: 40px;
+      font-weight: 800;
+      color: #0b1e2b;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.2rem;
+    }
+
+    .price small {
+      font-weight: 600;
+      font-size: 0.7rem;
+      color: #64748b;
+      margin-left: 0.2rem;
+    }
+
+    .book-btn {
+      background: #0b1e2b;
+      border: none;
+      color: white;
+      font-weight: 700;
+      padding: 0.7rem 1.5rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: default;
+      transition: 0.2s;
+      letter-spacing: 0.3px;
+      border: 1px solid #0b1e2b;
+    }
+
+    .book-btn i {
+      font-size: 0.9rem;
+      color: #17c964;
+    }
+
+    .book-btn:hover {
+      background: #17c964;
+      color: #0b1e2b;
+      border-color: #17c964;
+    }
+
+    .book-btn:hover i {
+      color: #0b1e2b;
+    }
+
+    /* extra row: featured / quick actions */
+    .quick-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .action-chip {
+      background: white;
+      border: 1px solid #e2e8f0;
+      padding: 0.6rem 1.3rem;
+      border-radius: 60px;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 600;
+      color: #1e293b;
+      font-size: 0.9rem;
+      cursor: default;
+      transition: 0.2s;
+    }
+
+    .action-chip i {
+      color: #17c964;
+    }
+
+    .action-chip:hover {
+      background: #0b1e2b;
+      color: white;
+      border-color: #0b1e2b;
+    }
+
+    .action-chip:hover i {
+      color: #17c964;
+    }
+
+    /* footer / bottom bar */
+    .app-footer {
+      background: #ffffff;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #e2e8f0;
+      color: #64748b;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    .footer-icons {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .footer-icons i {
+      font-size: 1.2rem;
+      color: #94a3b8;
+      transition: 0.2s;
+      cursor: default;
+    }
+
+    .footer-icons i:hover {
+      color: #17c964;
+    }
+
+    /* small responsiveness */
+    @media (max-width: 700px) {
+      .app-header {
+        padding: 1.2rem;
+      }
+      .main-content {
+        padding: 1.5rem 1.2rem;
+      }
+      .search-bar {
+        min-width: 100%;
+      }
+      .welcome-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .app-footer {
+        flex-direction: column;
+        gap: 0.8rem;
+        text-align: center;
+      }
+      .logo-text h1 {
+        font-size: 1.4rem;
+      }
+    }
+
+    /* extra polish for icons and live effect */
+    .live-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: #17c964;
+      border-radius: 50%;
+      margin-right: 6px;
+      box-shadow: 0 0 0 2px rgba(23, 201, 100, 0.3);
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.9); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- header -->
+    <header class="app-header">
+      <div class="logo-area">
+        <div class="logo-icon">
+          <i class="fas fa-futbol"></i>
+        </div>
+        <div class="logo-text">
+          <h1>FootTicket</h1>
+          <span>⚡ live the game</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <div class="icon-btn"><i class="far fa-bell"></i></div>
+        <div class="user-badge">
+          <i class="fas fa-user-circle"></i> Alex M.
+        </div>
+      </div>
+    </header>
+
+    <!-- main content -->
+    <main class="main-content">
+      <!-- welcome & search -->
+      <div class="welcome-row">
+        <div class="welcome-text">
+          <h2>Book your seat <i class="fas fa-ticket-alt" style="color:#17c964;"></i></h2>
+          <p><i class="fas fa-map-pin"></i> Premier League · Champions League · Europa</p>
+        </div>
+        <div class="search-bar">
+          <i class="fas fa-search"></i>
+          <input type="text" placeholder="Search teams, stadiums..." value="Arsenal">
+          <button><i class="fas fa-sliders-h"></i> Filter</button>
+        </div>
+      </div>
+
+      <!-- quick chips -->
+      <div class="quick-actions">
+        <div class="action-chip"><i class="fas fa-fire"></i> Trending</div>
+        <div class="action-chip"><i class="fas fa-calendar-alt"></i> This week</div>
+        <div class="action-chip"><i class="fas fa-tag"></i> Under $80</div>
+        <div class="action-chip"><i class="fas fa-crown"></i> VIP</div>
+      </div>
+
+      <!-- upcoming matches header -->
+      <div class="section-title">
+        <h3>Upcoming matches <span style="font-size:0.9rem; font-weight:500; color:#64748b; margin-left:8px;"><span class="live-dot"></span>live updates</span></h3>
+        <a href="#">See all <i class="fas fa-arrow-right"></i></a>
+      </div>
+
+      <!-- match cards grid -->
+      <div class="matches-grid">
+        <!-- match 1 -->
+        <div class="match-card">
+          <div class="card-badge">
+            <span class="league-tag"><i class="fas fa-trophy"></i> Premier League</span>
+            <span class="hot-tag"><i class="fas fa-fire"></i> HOT</span>
+          </div>
+          <div class="teams-row">
+            <div class="team team1">
+              <div class="team-badge">ARS</div>
+              <div class="team-name">Arsenal</div>
+            </div>
+            <div class="vs-divider">VS</div>
+            <div class="team team2">
+              <div class="team-badge">MCI</div>
+              <div class="team-name">Man City</div>
+            </div>
+          </div>
+          <div class="match-info">
+            <div class="info-row"><i class="fas fa-calendar-check"></i> Sun, 15 Oct · 16:30</div>
+            <div class="info-row"><i class="fas fa-location-dot"></i> Emirates Stadium, London</div>
+          </div>
+          <div class="price-row">
+            <div class="price">$95 <small>+ fees</small></div>
+            <button class="book-btn"><i class="fas fa-ticket-alt"></i> Book now</button>
+          </div>
+        </div>
+
+        <!-- match 2 -->
+        <div class="match-card">
+          <div class="card-badge">
+            <span class="league-tag"><i class="fas fa-trophy"></i> Champions League</span>
+            <span class="hot-tag" style="background:#dbeafe; color:#1e40af;"><i class="fas fa-star"></i> ELITE</span>
+          </div>
+          <div class="teams-row">
+            <div class="team team1">
+              <div class="team-badge" style="background: linear-gradient(135deg, #0b1e2b, #1e3a8a);">RMA</div>
+              <div class="team-name">Real Madrid</div>
+            </div>
+            <div class="vs-divider">VS</div>
+            <div class="team team2">
+              <div class="team-badge" style="background: linear-gradient(135deg, #b91c1c, #991b1b);">BAY</div>
+              <div class="team-name">Bayern</div>
+            </div>
+          </div>
+          <div class="match-info">
+            <div class="info-row"><i class="fas fa-calendar-check"></i> Tue, 24 Oct · 20:00</div>
+            <div class="info-row"><i class="fas fa-location-dot"></i> Santiago Bernabéu, Madrid</div>
+          </div>
+          <div class="price-row">
+            <div class="price">€140 <small>+ fees</small></div>
+            <button class="book-btn"><i class="fas fa-ticket-alt"></i> Book now</button>
+          </div>
+        </div>
+
+        <!-- match 3 -->
+        <div class="match-card">
+          <div class="card-badge">
+            <span class="league-tag"><i class="fas fa-trophy"></i> Serie A</span>
+            <span class="hot-tag" style="background:#f3e8ff; color:#6b21a8;"><i class="fas fa-clock"></i> SOON</span>
+          </div>
+          <div class="teams-row">
+            <div class="team team1">
+              <div class="team-badge" style="background: linear-gradient(135deg, #1e3a8a, #1e40af);">INT</div>
+              <div class="team-name">Inter</div>
+            </div>
+            <div class="vs-divider">VS</div>
+            <div class="team team2">
+              <div class="team-badge" style="background: linear-gradient(135deg, #b91c1c, #7f1d1d);">MIL</div>
+              <div class="team-name">AC Milan</div>
+            </div>
+          </div>
+          <div class="match-info">
+            <div class="info-row"><i class="fas fa-calendar-check"></i> Sun, 22 Oct · 18:45</div>
+            <div class="info-row"><i class="fas fa-location-dot"></i> San Siro, Milan</div>
+          </div>
+          <div class="price-row">
+            <div class="price">€110 <small>+ fees</small></div>
+            <button class="book-btn"><i class="fas fa-ticket-alt"></i> Book now</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- a second mini row: "stadium experiences" just for extra appeal -->
+      <div class="section-title" style="margin-top: 0.8rem;">
+        <h3>⚡ Stadium experiences</h3>
+        <a href="#">View all <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="quick-actions" style="margin-bottom: 1rem;">
+        <div class="action-chip"><i class="fas fa-utensils"></i> VIP Hospitality</div>
+        <div class="action-chip"><i class="fas fa-couch"></i> Premium seats</div>
+        <div class="action-chip"><i class="fas fa-car"></i> Parking + ticket</div>
+        <div class="action-chip"><i class="fas fa-tshirt"></i> Jersey bundle</div>
+      </div>
+    </main>
+
+    <!-- footer -->
+    <footer class="app-footer">
+      <span>© 2025 FootTicket · all match data live</span>
+      <div class="footer-icons">
+        <i class="fas fa-home"></i>
+        <i class="fas fa-search"></i>
+        <i class="fas fa-ticket-alt"></i>
+        <i class="fas fa-user"></i>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
